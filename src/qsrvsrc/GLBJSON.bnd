@@ -1,0 +1,6 @@
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('GLBJSON 1.0')
+  EXPORT SYMBOL('buildJson')
+  EXPORT SYMBOL('validateJsonSyntax')
+  EXPORT SYMBOL('validateUtf8')
+  EXPORT SYMBOL('validateControlTotales')
+ENDPGMEXP

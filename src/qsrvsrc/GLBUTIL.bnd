@@ -1,0 +1,9 @@
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('GLBUTIL 1.0')
+  EXPORT SYMBOL('validatePath')
+  EXPORT SYMBOL('writeTempFile')
+  EXPORT SYMBOL('publishFile')
+  EXPORT SYMBOL('cleanupTempFile')
+  EXPORT SYMBOL('openLog')
+  EXPORT SYMBOL('writeEvent')
+  EXPORT SYMBOL('closeLog')
+ENDPGMEXP

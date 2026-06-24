@@ -1,0 +1,7 @@
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('GLBDATA 1.0')
+  EXPORT SYMBOL('openCuentaCursor')
+  EXPORT SYMBOL('fetchCuenta')
+  EXPORT SYMBOL('loadMovimientos')
+  EXPORT SYMBOL('loadDescripciones')
+  EXPORT SYMBOL('closeCuentaCursor')
+ENDPGMEXP

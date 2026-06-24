@@ -1,0 +1,90 @@
+**free
+// Contratos comunes para conciliacion GLBLN.
+
+dcl-ds OpStatus qualified template;
+  ok ind;
+  severidad varchar(10);
+  codigo varchar(20);
+  mensaje varchar(256);
+end-ds;
+
+dcl-ds RunParms qualified template;
+  codigoBanco varchar(10);
+  codigoSucursal varchar(10);
+  codigoMoneda varchar(10);
+  cuentaDesde varchar(30);
+  cuentaHasta varchar(30);
+  fechaProceso date;
+  rutaIfs varchar(500);
+  modoEjecucion varchar(12);
+  ambiente varchar(20);
+  tolerancia packed(18:2);
+end-ds;
+
+dcl-ds CuentaFuente qualified template;
+  codigoBanco varchar(10);
+  codigoSucursal varchar(10);
+  codigoMoneda varchar(10);
+  cuentaContable varchar(30);
+  descripcionCuenta varchar(120);
+  naturalezaCuenta varchar(10);
+  nivelCuenta int(5);
+  centroCosto varchar(30);
+  saldoFuente packed(18:2);
+  fechaProcesoSistema date;
+end-ds;
+
+dcl-ds Movimiento qualified template;
+  idMovimiento varchar(40);
+  numeroRegistroRelativo int(10);
+  fechaOperacion date;
+  tipoMovimiento varchar(10);
+  debitoCredito char(1);
+  monto packed(18:2);
+  referenciaExterna varchar(60);
+  textoDescripcion varchar(120);
+end-ds;
+
+dcl-ds CuentaResultado qualified template;
+  cuenta likeds(CuentaFuente);
+  totalDebitos packed(18:2);
+  totalCreditos packed(18:2);
+  cantidadMovimientos int(10);
+  saldoCalculado packed(18:2);
+  saldoConciliado packed(18:2);
+  diferenciaNeta packed(18:2);
+  excedeTolerancia ind;
+  requiereRevision ind;
+  estadoFinanciero varchar(12);
+  estadoConciliacion varchar(15);
+  incidenteCodigo varchar(20);
+  incidenteSeveridad varchar(10);
+  incidenteMensaje varchar(256);
+end-ds;
+
+dcl-ds ControlTotales qualified template;
+  totalCuentasLeidas int(10);
+  totalCuentasExportadas int(10);
+  totalCuentasConDiferencia int(10);
+  totalCuentasConRevision int(10);
+  sumatoriaSaldoFuente packed(18:2);
+  sumatoriaSaldoCalculado packed(18:2);
+  sumatoriaSaldoConciliado packed(18:2);
+  sumatoriaDiferenciaNeta packed(18:2);
+  totalIncidentes int(10);
+end-ds;
+
+dcl-ds ExecInfo qualified template;
+  idEjecucion varchar(20);
+  usuario varchar(30);
+  programa varchar(10);
+  libreria varchar(10);
+  inicio timestamp;
+  fin timestamp;
+  estado varchar(12);
+  nombreJson varchar(128);
+  nombreLog varchar(128);
+end-ds;
+
+dcl-s MAX_MOVS int(10) inz(500);
+dcl-s MAX_CUENTAS int(10) inz(1000);

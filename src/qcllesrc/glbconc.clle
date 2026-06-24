@@ -1,0 +1,45 @@
+             PGM        PARM(&BANCO &SUCURSAL &MONEDA &CTADES +
+                          &CTAHAS &FECHA &RUTAIFS &MODO +
+                          &AMBIENTE &TOL)
+
+             DCL        VAR(&BANCO) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&SUCURSAL) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&MONEDA) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&CTADES) TYPE(*CHAR) LEN(30)
+             DCL        VAR(&CTAHAS) TYPE(*CHAR) LEN(30)
+             DCL        VAR(&FECHA) TYPE(*CHAR) LEN(10)
+             DCL        VAR(&RUTAIFS) TYPE(*CHAR) LEN(500)
+             DCL        VAR(&MODO) TYPE(*CHAR) LEN(12)
+             DCL        VAR(&AMBIENTE) TYPE(*CHAR) LEN(20)
+             DCL        VAR(&TOL) TYPE(*DEC) LEN(18 2)
+             DCL        VAR(&MSG) TYPE(*CHAR) LEN(256)
+
+             IF         COND(&BANCO *EQ ' ') THEN(DO)
+             CHGVAR     VAR(&MSG) VALUE('codigo_banco obligatorio')
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&MSG) +
+                          MSGTYPE(*ESCAPE)
+             ENDDO
+
+             IF         COND(&FECHA *EQ ' ') THEN(DO)
+             CHGVAR     VAR(&MSG) VALUE('fecha_proceso obligatoria')
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&MSG) +
+                          MSGTYPE(*ESCAPE)
+             ENDDO
+
+             IF         COND(&RUTAIFS *EQ ' ') THEN(DO)
+             CHGVAR     VAR(&MSG) VALUE('ruta_ifs obligatoria')
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&MSG) +
+                          MSGTYPE(*ESCAPE)
+             ENDDO
+
+             CALL       PGM(GLBATCH) PARM(&BANCO &SUCURSAL &MONEDA +
+                          &CTADES &CTAHAS &FECHA &RUTAIFS &MODO +
+                          &AMBIENTE &TOL)
+
+             MONMSG     MSGID(CPF0000) EXEC(DO)
+             RCVMSG     MSGTYPE(*EXCP) MSG(&MSG)
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&MSG) +
+                          MSGTYPE(*ESCAPE)
+             ENDDO
+
+             ENDPGM

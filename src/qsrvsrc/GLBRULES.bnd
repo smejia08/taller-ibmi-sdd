@@ -1,0 +1,7 @@
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('GLBRULES 1.0')
+  EXPORT SYMBOL('calcSaldoCuenta')
+  EXPORT SYMBOL('evalTolerancia')
+  EXPORT SYMBOL('dispatchReglas')
+  EXPORT SYMBOL('clasificaEstado')
+  EXPORT SYMBOL('buildIncidentesCuenta')
+ENDPGMEXP
