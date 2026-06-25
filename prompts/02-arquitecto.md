@@ -49,7 +49,14 @@ Definir:
 6. Estrategia de logging.
 7. Estrategia JSON.
 8. Estrategia de manejo de errores.
-9. Estrategia de pruebas.
+9. Estrategia de pruebas. Debe especificar explícitamente:
+- Datos mock requeridos.
+- Estrategia de preparación.
+- Programas de prueba unitarios.
+- Programas de integración.
+- Validaciones JSON.
+- Evidencias.
+- Cobertura mínima esperada.
 
 # VALIDACIONES
 
@@ -58,6 +65,7 @@ La arquitectura debe cumplir:
 * SOLID
 * Separación de responsabilidades
 * Reglas de Revision_IBMi.md
+* Priorizar el uso de funciones nativas SQL y RPGLE en lugar de APIs IFS o APIs de sistema.
 * Normas o convenciones de IBM i que no contradigan las reglas de Revision_IBMi.md, por ejemplo: nombres de objetos, tipos de datos, en archivos SQL no superar 80 caracteres por línea, etc.
 * Toda decisión marcada como "Supuesto" debe quedar documentada en 02-SpecIBMi.md.
 

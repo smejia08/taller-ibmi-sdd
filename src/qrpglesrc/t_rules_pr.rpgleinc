@@ -1,0 +1,30 @@
+dcl-pr calcSaldoCuenta extproc('calcSaldoCuenta');
+  status likeds(OpStatus);
+  cuenta likeds(CuentaFuente) const;
+  movs likeds(Movimiento) dim(500) const;
+  movCount int(10) const;
+  result likeds(CuentaResultado);
+end-pr;
+
+dcl-pr evalTolerancia extproc('evalTolerancia');
+  status likeds(OpStatus);
+  result likeds(CuentaResultado);
+  tolerancia packed(18:2) const;
+end-pr;
+
+dcl-pr dispatchReglas extproc('dispatchReglas');
+  status likeds(OpStatus);
+  version varchar(10) const;
+  result likeds(CuentaResultado);
+end-pr;
+
+dcl-pr clasificaEstado extproc('clasificaEstado');
+  status likeds(OpStatus);
+  result likeds(CuentaResultado);
+end-pr;
+
+dcl-pr buildIncidentesCuenta extproc('buildIncidentesCuenta');
+  status likeds(OpStatus);
+  result likeds(CuentaResultado);
+end-pr;
+

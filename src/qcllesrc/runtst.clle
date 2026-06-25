@@ -1,0 +1,41 @@
+             PGM
+
+             DCL        VAR(&MSG) TYPE(*CHAR) LEN(256)
+
+             CALL       PGM(T_RULES01)
+             CALL       PGM(T_RULES02)
+             CALL       PGM(T_RULES03)
+             CALL       PGM(T_RULES04)
+             CALL       PGM(T_RULES05)
+             CALL       PGM(T_RULES06)
+             CALL       PGM(T_RULES07)
+             CALL       PGM(T_RULES08)
+             CALL       PGM(T_RULES09)
+             CALL       PGM(T_RULES10)
+             CALL       PGM(T_RULES11)
+             CALL       PGM(T_RULES12)
+             CALL       PGM(TI_DATA01)
+             CALL       PGM(TI_DATA02)
+             CALL       PGM(TI_DATA03)
+             CALL       PGM(TI_DATA04)
+             CALL       PGM(TI_DATA05)
+             CALL       PGM(TI_JSON01)
+             CALL       PGM(TI_JSON02)
+             CALL       PGM(TI_IFS01)
+             CALL       PGM(TI_IFS02)
+             CALL       PGM(TI_IFS03)
+             CALL       PGM(TI_LOG01)
+             CALL       PGM(TI_BATCH01)
+
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) +
+                          MSGDTA('Suite GLBLN finalizada') +
+                          MSGTYPE(*INFO)
+
+             MONMSG     MSGID(CPF0000) EXEC(DO)
+             RCVMSG     MSGTYPE(*EXCP) MSG(&MSG)
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&MSG) +
+                          MSGTYPE(*ESCAPE)
+             ENDDO
+
+             ENDPGM
+

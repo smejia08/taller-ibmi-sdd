@@ -1,0 +1,91 @@
+             PGM
+
+             DCL        VAR(&MSG) TYPE(*CHAR) LEN(256)
+
+             CRTBNDRPG  PGM(*CURLIB/T_RULES01) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES01) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES02) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES02) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES03) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES03) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES04) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES04) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES05) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES05) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES06) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES06) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES07) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES07) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES08) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES08) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES09) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES09) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES10) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES10) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES11) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES11) +
+                          DBGVIEW(*SOURCE)
+             CRTBNDRPG  PGM(*CURLIB/T_RULES12) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(T_RULES12) +
+                          DBGVIEW(*SOURCE)
+
+             CRTSQLRPGI OBJ(*CURLIB/TI_DATA01) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_DATA01) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_DATA02) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_DATA02) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_DATA03) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_DATA03) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_DATA04) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_DATA04) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_DATA05) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_DATA05) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_JSON01) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_JSON01) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_JSON02) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_JSON02) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_IFS01) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_IFS01) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_IFS02) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_IFS02) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_IFS03) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_IFS03) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_LOG01) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_LOG01) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+             CRTSQLRPGI OBJ(*CURLIB/TI_BATCH01) +
+                          SRCFILE(*CURLIB/QRPGLESRC) SRCMBR(TI_BATCH01) +
+                          OBJTYPE(*PGM) DBGVIEW(*SOURCE)
+
+             CRTCLPGM   PGM(*CURLIB/RUNTST) +
+                          SRCFILE(*CURLIB/QCLLESRC) SRCMBR(RUNTST)
+             CRTCLPGM   PGM(*CURLIB/TSTSUITE) +
+                          SRCFILE(*CURLIB/QCLLESRC) SRCMBR(TSTSUITE)
+
+             MONMSG     MSGID(CPF0000) EXEC(DO)
+             RCVMSG     MSGTYPE(*EXCP) MSG(&MSG)
+             SNDPGMMSG  MSGID(CPF9898) MSGF(QCPFMSG) MSGDTA(&MSG) +
+                          MSGTYPE(*ESCAPE)
+             ENDDO
+
+             ENDPGM
+

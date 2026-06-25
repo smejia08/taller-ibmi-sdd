@@ -1,0 +1,6 @@
+             PGM
+
+             SBMJOB     CMD(CALL PGM(RUNTST)) JOB(GLBTSTSUIT)
+
+             ENDPGM
+

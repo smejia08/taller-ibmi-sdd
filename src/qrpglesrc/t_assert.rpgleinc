@@ -1,0 +1,72 @@
+// Utilidades minimas de asercion para programas de prueba.
+
+dcl-proc assertInd;
+  dcl-pi *n;
+    ok ind const;
+    testName varchar(30) const;
+  end-pi;
+
+  if ok;
+    dsply ('PASS ' + %trim(testName));
+  else;
+    dsply ('FAIL ' + %trim(testName));
+  endif;
+end-proc;
+
+dcl-proc setCuenta;
+  dcl-pi *n;
+    cuenta likeds(CuentaFuente);
+    nro varchar(30) const;
+    saldo packed(18:2) const;
+  end-pi;
+
+  clear cuenta;
+  cuenta.codigoBanco = '001';
+  cuenta.codigoSucursal = '001';
+  cuenta.codigoMoneda = 'COP';
+  cuenta.cuentaContable = nro;
+  cuenta.descripcionCuenta = 'CUENTA PRUEBA';
+  cuenta.naturalezaCuenta = 'DEBITO';
+  cuenta.nivelCuenta = 1;
+  cuenta.centroCosto = 'CC001';
+  cuenta.saldoFuente = saldo;
+  cuenta.fechaProcesoSistema = %date('2026-06-25':*iso);
+end-proc;
+
+dcl-proc setParms;
+  dcl-pi *n;
+    parms likeds(RunParms);
+    ruta varchar(500) const;
+  end-pi;
+
+  clear parms;
+  parms.codigoBanco = '001';
+  parms.codigoSucursal = '001';
+  parms.codigoMoneda = 'COP';
+  parms.cuentaDesde = '100000';
+  parms.cuentaHasta = '170000';
+  parms.fechaProceso = %date('2026-06-25':*iso);
+  parms.rutaIfs = ruta;
+  parms.modoEjecucion = 'PRUEBA';
+  parms.ambiente = 'TST';
+  parms.tolerancia = 10.00;
+end-proc;
+
+dcl-proc setExec;
+  dcl-pi *n;
+    exec likeds(ExecInfo);
+    id varchar(20) const;
+    estado varchar(12) const;
+  end-pi;
+
+  clear exec;
+  exec.idEjecucion = id;
+  exec.usuario = %user();
+  exec.programa = 'TST';
+  exec.libreria = '*LIBL';
+  exec.inicio = %timestamp();
+  exec.fin = %timestamp();
+  exec.estado = estado;
+  exec.nombreJson = %trim(id) + '.json';
+  exec.nombreLog = %trim(id) + '.log';
+end-proc;

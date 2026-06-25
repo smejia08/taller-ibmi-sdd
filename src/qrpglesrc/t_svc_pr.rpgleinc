@@ -1,0 +1,96 @@
+dcl-pr openCuentaCursor extproc('openCuentaCursor');
+  status likeds(OpStatus);
+  parms likeds(RunParms) const;
+end-pr;
+
+dcl-pr fetchCuenta extproc('fetchCuenta');
+  status likeds(OpStatus);
+  cuenta likeds(CuentaFuente);
+  eof ind;
+end-pr;
+
+dcl-pr closeCuentaCursor extproc('closeCuentaCursor');
+  status likeds(OpStatus);
+end-pr;
+
+dcl-pr loadMovimientos extproc('loadMovimientos');
+  status likeds(OpStatus);
+  cuenta likeds(CuentaFuente) const;
+  parms likeds(RunParms) const;
+  movs likeds(Movimiento) dim(500);
+  movCount int(10);
+end-pr;
+
+dcl-pr loadDescripciones extproc('loadDescripciones');
+  status likeds(OpStatus);
+  movs likeds(Movimiento) dim(500);
+  movCount int(10) const;
+end-pr;
+
+dcl-pr buildJson extproc('buildJson');
+  status likeds(OpStatus);
+  parms likeds(RunParms) const;
+  exec likeds(ExecInfo) const;
+  cuentas likeds(CuentaResultado) dim(1000) const;
+  cuentaCount int(10) const;
+  control likeds(ControlTotales) const;
+  json varchar(1048576);
+end-pr;
+
+dcl-pr validateJsonSyntax extproc('validateJsonSyntax');
+  status likeds(OpStatus);
+  json varchar(1048576) const;
+end-pr;
+
+dcl-pr validateUtf8 extproc('validateUtf8');
+  status likeds(OpStatus);
+  json varchar(1048576) const;
+end-pr;
+
+dcl-pr validateControlTotales extproc('validateControlTotales');
+  status likeds(OpStatus);
+  cuentas likeds(CuentaResultado) dim(1000) const;
+  cuentaCount int(10) const;
+  control likeds(ControlTotales) const;
+end-pr;
+
+dcl-pr validatePath extproc('validatePath');
+  status likeds(OpStatus);
+  ruta varchar(500) const;
+end-pr;
+
+dcl-pr writeTempFile extproc('writeTempFile');
+  status likeds(OpStatus);
+  ruta varchar(500) const;
+  nombreTemp varchar(128) const;
+  json varchar(1048576) const;
+end-pr;
+
+dcl-pr publishFile extproc('publishFile');
+  status likeds(OpStatus);
+  ruta varchar(500) const;
+  nombreTemp varchar(128) const;
+  nombreFinal varchar(128) const;
+end-pr;
+
+dcl-pr openLog extproc('openLog');
+  status likeds(OpStatus);
+  ruta varchar(500) const;
+  nombre varchar(128) const;
+  id varchar(20) const;
+end-pr;
+
+dcl-pr writeEvent extproc('writeEvent');
+  status likeds(OpStatus);
+  id varchar(20) const;
+  etapa varchar(30) const;
+  severidad varchar(10) const;
+  codigo varchar(20) const;
+  mensaje varchar(256) const;
+end-pr;
+
+dcl-pr closeLog extproc('closeLog');
+  status likeds(OpStatus);
+  id varchar(20) const;
+end-pr;
+
