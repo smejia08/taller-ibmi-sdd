@@ -1,5 +1,5 @@
 --=============================================================================
--- Nombre de la Tabla: TTRAN
+-- Nombre de la Tabla: SMEJIAR1.TTRAN
 -- DESCRIPCIÓN: Archivo Maestro de Transacciones del día
 -- Objetivo: Almacenar los movimientos y transacciones diarias del banco.
 -- Tipo de Tabla: Transaccional / Operativo diario
@@ -11,8 +11,9 @@
 -- Fecha: 2026-06-24
 -- Proyecto: Taller IBM i - Conciliación
 --=============================================================================
+DROP TABLE IF EXISTS SMEJIAR1.TTRAN;
 
-CREATE OR REPLACE TABLE TTRAN (
+CREATE OR REPLACE TABLE SMEJIAR1.TTRAN (
   id_transaccion_dia FOR COLUMN IDTRADIA BIGINT NOT NULL,
   id_movimiento FOR COLUMN IDMOV VARCHAR(30) NOT NULL,
   numero_registro_relativo FOR COLUMN NUMRRN VARCHAR(30),
@@ -47,218 +48,218 @@ CREATE OR REPLACE TABLE TTRAN (
 )
 RCDFMT RTTRAN;
 
-LABEL ON TABLE TTRAN IS
+LABEL ON TABLE SMEJIAR1.TTRAN IS
   'Transacciones Contables del Dia';
 
-COMMENT ON TABLE TTRAN IS
+COMMENT ON TABLE SMEJIAR1.TTRAN IS
   'Almacena el detalle de movimientos de cuentas del dia en curso.';
 
-COMMENT ON COLUMN TTRAN.id_transaccion_dia IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.id_transaccion_dia IS
   'Identificador secuencial unico del movimiento del dia';
-LABEL ON COLUMN TTRAN.id_transaccion_dia IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.id_transaccion_dia IS
   'ID Transac. Dia';
-LABEL ON COLUMN TTRAN.id_transaccion_dia TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.id_transaccion_dia TEXT IS
   'ID Transaccion del Dia';
 
-COMMENT ON COLUMN TTRAN.id_movimiento IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.id_movimiento IS
   'Identificador unico del movimiento para trazabilidad';
-LABEL ON COLUMN TTRAN.id_movimiento IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.id_movimiento IS
   'ID Movimiento';
-LABEL ON COLUMN TTRAN.id_movimiento TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.id_movimiento TEXT IS
   'ID Movimiento';
 
-COMMENT ON COLUMN TTRAN.numero_registro_relativo IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.numero_registro_relativo IS
   'Numero de registro relativo origen (RRN)';
-LABEL ON COLUMN TTRAN.numero_registro_relativo IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.numero_registro_relativo IS
   'Num. Registro Rel';
-LABEL ON COLUMN TTRAN.numero_registro_relativo TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.numero_registro_relativo TEXT IS
   'Numero de Registro Relativo';
 
-COMMENT ON COLUMN TTRAN.codigo_banco IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.codigo_banco IS
   'Codigo identificador de la entidad bancaria';
-LABEL ON COLUMN TTRAN.codigo_banco IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.codigo_banco IS
   'Cod. Banco';
-LABEL ON COLUMN TTRAN.codigo_banco TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.codigo_banco TEXT IS
   'Codigo de Banco';
 
-COMMENT ON COLUMN TTRAN.codigo_sucursal IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.codigo_sucursal IS
   'Codigo identificador de la sucursal de origen';
-LABEL ON COLUMN TTRAN.codigo_sucursal IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.codigo_sucursal IS
   'Cod. Sucursal';
-LABEL ON COLUMN TTRAN.codigo_sucursal TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.codigo_sucursal TEXT IS
   'Codigo de Sucursal';
 
-COMMENT ON COLUMN TTRAN.codigo_moneda IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.codigo_moneda IS
   'Codigo ISO de la divisa o moneda del movimiento';
-LABEL ON COLUMN TTRAN.codigo_moneda IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.codigo_moneda IS
   'Cod. Moneda';
-LABEL ON COLUMN TTRAN.codigo_moneda TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.codigo_moneda TEXT IS
   'Codigo de Moneda';
 
-COMMENT ON COLUMN TTRAN.cuenta_contable IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.cuenta_contable IS
   'Cuenta contable mayor afectada por el movimiento';
-LABEL ON COLUMN TTRAN.cuenta_contable IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.cuenta_contable IS
   'Cuenta Contable';
-LABEL ON COLUMN TTRAN.cuenta_contable TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.cuenta_contable TEXT IS
   'Cuenta Contable';
 
-COMMENT ON COLUMN TTRAN.numero_cuenta IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.numero_cuenta IS
   'Numero de cuenta de detalle de cliente';
-LABEL ON COLUMN TTRAN.numero_cuenta IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.numero_cuenta IS
   'Num. Cuenta';
-LABEL ON COLUMN TTRAN.numero_cuenta TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.numero_cuenta TEXT IS
   'Numero de Cuenta';
 
-COMMENT ON COLUMN TTRAN.id_cliente IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.id_cliente IS
   'Identificacion unica del cliente asociado';
-LABEL ON COLUMN TTRAN.id_cliente IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.id_cliente IS
   'ID Cliente';
-LABEL ON COLUMN TTRAN.id_cliente TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.id_cliente TEXT IS
   'ID Cliente';
 
-COMMENT ON COLUMN TTRAN.fecha IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.fecha IS
   'Fecha de registro del movimiento contable';
-LABEL ON COLUMN TTRAN.fecha IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.fecha IS
   'Fecha Registro';
-LABEL ON COLUMN TTRAN.fecha TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.fecha TEXT IS
   'Fecha de Registro';
 
-COMMENT ON COLUMN TTRAN.fecha_operacion IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.fecha_operacion IS
   'Fecha en que se ejecuto la operacion contable';
-LABEL ON COLUMN TTRAN.fecha_operacion IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.fecha_operacion IS
   'Fec. Operacion';
-LABEL ON COLUMN TTRAN.fecha_operacion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.fecha_operacion TEXT IS
   'Fecha de Operacion';
 
-COMMENT ON COLUMN TTRAN.fecha_valor IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.fecha_valor IS
   'Fecha valor o de efectividad contable';
-LABEL ON COLUMN TTRAN.fecha_valor IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.fecha_valor IS
   'Fec. Valor';
-LABEL ON COLUMN TTRAN.fecha_valor TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.fecha_valor TEXT IS
   'Fecha Valor';
 
-COMMENT ON COLUMN TTRAN.hora_operacion IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.hora_operacion IS
   'Hora exacta de la operacion contable';
-LABEL ON COLUMN TTRAN.hora_operacion IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.hora_operacion IS
   'Hora Operacion';
-LABEL ON COLUMN TTRAN.hora_operacion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.hora_operacion TEXT IS
   'Hora de Operacion';
 
-COMMENT ON COLUMN TTRAN.tipo_movimiento IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.tipo_movimiento IS
   'Tipo de movimiento contable (deposito, retiro, etc.)';
-LABEL ON COLUMN TTRAN.tipo_movimiento IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.tipo_movimiento IS
   'Tipo Movimiento';
-LABEL ON COLUMN TTRAN.tipo_movimiento TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.tipo_movimiento TEXT IS
   'Tipo de Movimiento';
 
-COMMENT ON COLUMN TTRAN.debito_credito IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.debito_credito IS
   'Indicador de afectacion (D Debito, C Credito)';
-LABEL ON COLUMN TTRAN.debito_credito IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.debito_credito IS
   'Deb. / Cred.';
-LABEL ON COLUMN TTRAN.debito_credito TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.debito_credito TEXT IS
   'Debito o Credito';
 
-COMMENT ON COLUMN TTRAN.monto IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.monto IS
   'Monto o valor monetario de la transaccion';
-LABEL ON COLUMN TTRAN.monto IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.monto IS
   'Monto Transac.';
-LABEL ON COLUMN TTRAN.monto TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.monto TEXT IS
   'Monto de Transaccion';
 
-COMMENT ON COLUMN TTRAN.saldo_anterior IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.saldo_anterior IS
   'Saldo contable de la cuenta antes del movimiento';
-LABEL ON COLUMN TTRAN.saldo_anterior IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.saldo_anterior IS
   'Saldo Anterior';
-LABEL ON COLUMN TTRAN.saldo_anterior TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.saldo_anterior TEXT IS
   'Saldo Anterior';
 
-COMMENT ON COLUMN TTRAN.saldo_posterior IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.saldo_posterior IS
   'Saldo contable de la cuenta posterior al movimiento';
-LABEL ON COLUMN TTRAN.saldo_posterior IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.saldo_posterior IS
   'Saldo Posterior';
-LABEL ON COLUMN TTRAN.saldo_posterior TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.saldo_posterior TEXT IS
   'Saldo Posterior';
 
-COMMENT ON COLUMN TTRAN.canal_origen IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.canal_origen IS
   'Canal transaccional de origen (ATM, WEB, etc.)';
-LABEL ON COLUMN TTRAN.canal_origen IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.canal_origen IS
   'Canal Origen';
-LABEL ON COLUMN TTRAN.canal_origen TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.canal_origen TEXT IS
   'Canal de Origen';
 
-COMMENT ON COLUMN TTRAN.terminal_origen IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.terminal_origen IS
   'Identificador de la terminal o servidor de origen';
-LABEL ON COLUMN TTRAN.terminal_origen IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.terminal_origen IS
   'Terminal Origen';
-LABEL ON COLUMN TTRAN.terminal_origen TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.terminal_origen TEXT IS
   'Terminal de Origen';
 
-COMMENT ON COLUMN TTRAN.referencia_externa IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.referencia_externa IS
   'Referencia o identificador del sistema externo';
-LABEL ON COLUMN TTRAN.referencia_externa IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.referencia_externa IS
   'Ref. Externa';
-LABEL ON COLUMN TTRAN.referencia_externa TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.referencia_externa TEXT IS
   'Referencia Externa';
 
-COMMENT ON COLUMN TTRAN.texto_descripcion IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.texto_descripcion IS
   'Texto descriptivo o concepto de la transaccion';
-LABEL ON COLUMN TTRAN.texto_descripcion IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.texto_descripcion IS
   'Concepto Trans.';
-LABEL ON COLUMN TTRAN.texto_descripcion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.texto_descripcion TEXT IS
   'Concepto de Transaccion';
 
-COMMENT ON COLUMN TTRAN.estado_transaccion IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.estado_transaccion IS
   'Estado de la transaccion (Aplicado, Reverso, etc)';
-LABEL ON COLUMN TTRAN.estado_transaccion IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.estado_transaccion IS
   'Est. Transac.';
-LABEL ON COLUMN TTRAN.estado_transaccion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.estado_transaccion TEXT IS
   'Estado de Transaccion';
 
-COMMENT ON COLUMN TTRAN.usuario_creacion IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.usuario_creacion IS
   'Usuario o proceso que registro la transaccion';
-LABEL ON COLUMN TTRAN.usuario_creacion IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.usuario_creacion IS
   'Usuario Creac.';
-LABEL ON COLUMN TTRAN.usuario_creacion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.usuario_creacion TEXT IS
   'Usuario de Creacion';
 
-COMMENT ON COLUMN TTRAN.usuario_actualizacion IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.usuario_actualizacion IS
   'Usuario o proceso que modifico la transaccion';
-LABEL ON COLUMN TTRAN.usuario_actualizacion IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.usuario_actualizacion IS
   'Usuario Act.';
-LABEL ON COLUMN TTRAN.usuario_actualizacion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.usuario_actualizacion TEXT IS
   'Usuario de Actualizacion';
 
-COMMENT ON COLUMN TTRAN.version_registro IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.version_registro IS
   'Numero secuencial de version del registro para concurrencia';
-LABEL ON COLUMN TTRAN.version_registro IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.version_registro IS
   'Ver. Registro';
-LABEL ON COLUMN TTRAN.version_registro TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.version_registro TEXT IS
   'Version de Registro';
 
-COMMENT ON COLUMN TTRAN.observaciones IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.observaciones IS
   'Comentarios u observaciones de la transaccion';
-LABEL ON COLUMN TTRAN.observaciones IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.observaciones IS
   'Observaciones';
-LABEL ON COLUMN TTRAN.observaciones TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.observaciones TEXT IS
   'Observaciones';
 
-COMMENT ON COLUMN TTRAN.estado_registro IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.estado_registro IS
   'Estado del registro (A Activo, I Inactivo)';
-LABEL ON COLUMN TTRAN.estado_registro IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.estado_registro IS
   'Est. Registro';
-LABEL ON COLUMN TTRAN.estado_registro TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.estado_registro TEXT IS
   'Estado de Registro';
 
-COMMENT ON COLUMN TTRAN.created_at IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.created_at IS
   'Marca de tiempo de creacion del registro en la base de datos';
-LABEL ON COLUMN TTRAN.created_at IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.created_at IS
   'Fecha Creacion';
-LABEL ON COLUMN TTRAN.created_at TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.created_at TEXT IS
   'Creado el';
 
-COMMENT ON COLUMN TTRAN.updated_at IS
+COMMENT ON COLUMN SMEJIAR1.TTRAN.updated_at IS
   'Marca de tiempo de la ultima modificacion del registro';
-LABEL ON COLUMN TTRAN.updated_at IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.updated_at IS
   'Fecha Actualiz.';
-LABEL ON COLUMN TTRAN.updated_at TEXT IS
+LABEL ON COLUMN SMEJIAR1.TTRAN.updated_at TEXT IS
   'Actualizado el';

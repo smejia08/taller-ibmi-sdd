@@ -1,7 +1,7 @@
 -- Vista de contexto GLBLN para conciliacion.
 -- Campos logicos definidos por el contrato IBM i del taller.
 
-create or replace view V_GLBLN_CTX
+create or replace view SMEJIAR1.V_GLBLN_CTX
   for system name VGLBLNCTX
 as
 select
@@ -25,8 +25,8 @@ select
    and c.codigo_sucursal = b.codigo_sucursal
    and c.cuenta_contable = b.cuenta_contable;
 
-label on table V_GLBLN_CTX is
-  'Vista de balances GLBLN enriquecidos para conciliacion';
+label on table SMEJIAR1.V_GLBLN_CTX is
+  'Vista de balances GLBLN para conciliacion';
 
-comment on table V_GLBLN_CTX is
-  'Normaliza GLBLN con GLMST y CCDSC sin modificar tablas fuente.';
+comment on table SMEJIAR1.V_GLBLN_CTX is
+  'Normaliza GLBLN con GLMST y CCDSC.';

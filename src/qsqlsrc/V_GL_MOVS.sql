@@ -1,8 +1,7 @@
 -- Vista de movimientos normalizados desde TRANS y TTRAN.
 -- Campos logicos definidos por el contrato IBM i del taller.
 
-create or replace view V_GL_MOVS
-  for system name VGLMOVS
+create or replace view SMEJIAR1.V_GL_MOVS
 as
 select
        codigo_banco,
@@ -34,8 +33,8 @@ select
        texto_descripcion
   from TTRAN;
 
-label on table V_GL_MOVS is
-  'Vista de movimientos contables normalizados TRANS y TTRAN';
+label on table SMEJIAR1.V_GL_MOVS is
+  'Movimientos normalizados TRANS y TTRAN';
 
-comment on table V_GL_MOVS is
-  'Unifica movimientos historicos y del dia para calcular saldos.';
+comment on table SMEJIAR1.V_GL_MOVS is
+  'Unifica movimientos para calcular saldos.';

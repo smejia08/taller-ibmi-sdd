@@ -11,6 +11,7 @@
 -- Fecha: 2026-06-24
 -- Proyecto: Taller IBM i - Conciliación
 --=============================================================================
+DROP TABLE IF EXISTS SMEJIAR1.GLBLN;
 
 CREATE OR REPLACE TABLE GLBLN (
   codigo_banco FOR COLUMN CODBAN VARCHAR(20) NOT NULL,

@@ -1,6 +1,6 @@
 **free
-ctl-opt main(Main) option(*srcstmt:*nodebugio)
-        bnddir('QC2LE':'GLBBNDDIR');
+ctl-opt option(*srcstmt:*nodebugio)
+        bnddir('SMEJIAR1/GLBBNDDIR');
 
 /include qrpglesrc,glbtypes
 
@@ -114,7 +114,7 @@ dcl-pr publishFile extproc('publishFile');
   nombreFinal varchar(128) const;
 end-pr;
 
-dcl-pi Main;
+dcl-pi *n;
   pBanco varchar(10) const;
   pSucursal varchar(10) const;
   pMoneda varchar(10) const;
@@ -127,14 +127,14 @@ dcl-pi Main;
   pTolerancia packed(18:2) const;
 end-pi;
 
-dcl-s parms likeds(RunParms);
-dcl-s exec likeds(ExecInfo);
-dcl-s status likeds(OpStatus);
-dcl-s cuenta likeds(CuentaFuente);
-dcl-s movs likeds(Movimiento) dim(500);
-dcl-s result likeds(CuentaResultado);
-dcl-s cuentas likeds(CuentaResultado) dim(1000);
-dcl-s control likeds(ControlTotales);
+dcl-ds parms likeds(RunParms);
+dcl-ds exec likeds(ExecInfo);
+dcl-ds status likeds(OpStatus);
+dcl-ds cuenta likeds(CuentaFuente);
+dcl-ds movs likeds(Movimiento) dim(500);
+dcl-ds result likeds(CuentaResultado);
+dcl-ds cuentas likeds(CuentaResultado) dim(1000);
+dcl-ds control likeds(ControlTotales);
 dcl-s eof ind inz(*off);
 dcl-s movCount int(10);
 dcl-s cuentaCount int(10) inz(0);
@@ -153,7 +153,7 @@ parms.ambiente = %trim(pAmbiente);
 parms.tolerancia = pTolerancia;
 
 exec.idEjecucion = %subst(%char(%timestamp():*iso0):1:14);
-exec.usuario = %user();
+exec.usuario = '';
 exec.programa = 'GLBATCH';
 exec.libreria = '*LIBL';
 exec.inicio = %timestamp();

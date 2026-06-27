@@ -138,7 +138,7 @@ Para desplegar y compilar la solución en el entorno PUB400, siga los pasos desc
 Ejecute los siguientes comandos en la línea de comandos 5250 o mediante la herramienta de ejecución de scripts de ACS:
 ```sql
 -- Crear la biblioteca física de trabajo
-CREATE COLLECTION GLBTSTLIB;
+CREATE COLLECTION SMEJIAR1;
 
 -- Inicializar la estructura física requerida en el IFS para pruebas
 CALL QSYS2.IFS_WRITE_UTF8('/GLBTST/.keep', '', 'REPLACE', 'NONE');
@@ -148,7 +148,7 @@ CALL QSYS2.IFS_WRITE_UTF8('/GLBTST/invalid/.keep', '', 'REPLACE', 'NONE');
 ```
 
 ### 2. Ejecutar Scripts de Bases de Datos (DDL)
-Ejecute los siguientes scripts ubicados en `src/qsqlsrc/` en el orden indicado utilizando ACS Run SQL Scripts (configurando la biblioteca predeterminada en `GLBTSTLIB`):
+Ejecute los siguientes scripts ubicados en `src/qsqlsrc/` en el orden indicado utilizando ACS Run SQL Scripts (configurando la biblioteca predeterminada en `SMEJIAR1`):
 1. `GLMST.sql` (Maestro contable)
 2. `GLBLN.sql` (Balances de cuentas)
 3. `CCDSC.sql` (Centros de costo)
@@ -160,14 +160,14 @@ Ejecute los siguientes scripts ubicados en `src/qsqlsrc/` en el orden indicado u
 
 ### 3. Compilación del Código Fuente
 Para facilitar el proceso de compilación y enlazado en IBM i, se ha provisto un programa CLLE llamado `BLDTST`.
-1. Copie los archivos fuente del repositorio local a los miembros correspondientes de los archivos físicos de fuente de su biblioteca en PUB400 (`GLBTSTLIB/QCLLESRC`, `GLBTSTLIB/QRPGLESRC`, `GLBTSTLIB/QSRVSRC`).
+1. Copie los archivos fuente del repositorio local a los miembros correspondientes de los archivos físicos de fuente de su biblioteca en PUB400 (`SMEJIAR1/QCLLESRC`, `SMEJIAR1/QRPGLESRC`, `SMEJIAR1/QSRVSRC`).
 2. Compile de forma manual el programa CL de compilación:
    ```text
-   CRTBNDCL PGM(GLBTSTLIB/BLDTST) SRCFILE(GLBTSTLIB/QCLLESRC) SRCMBR(BLDTST)
+   CRTBNDCL PGM(SMEJIAR1/BLDTST) SRCFILE(SMEJIAR1/QCLLESRC) SRCMBR(BLDTST)
    ```
 3. Ejecute el compilador automático:
    ```text
-   CALL PGM(GLBTSTLIB/BLDTST)
+   CALL PGM(SMEJIAR1/BLDTST)
    ```
    *Este programa CL se encargará de compilar secuencialmente los includes, los módulos, registrar las firmas en los programas de servicio (`*SRVPGM`), compilar el orquestador principal (`GLBATCH`), el comando de entrada (`GLBCONC`) y toda la suite de pruebas unitarias e integradas.*
 
@@ -177,14 +177,14 @@ El proceso principal se puede iniciar manualmente llamando al programa de contro
 
 ### Sintaxis del Comando
 ```text
-CALL PGM(GLBTSTLIB/GLBCONC) PARM(
+CALL PGM(SMEJIAR1/GLBCONC) PARM(
   '001'                     /* Codigo de Banco (Obligatorio) */
   '001'                     /* Codigo de Sucursal (Opcional, blanco = todos) */
   'COP'                     /* Codigo de Moneda (Opcional, blanco = todos) */
   '100000'                  /* Rango de Cuenta Desde (Opcional) */
   '170000'                  /* Rango de Cuenta Hasta (Opcional) */
   '2026-06-25'              /* Fecha de Proceso (Obligatorio, YYYY-MM-DD) */
-  '/GLBTST/output/'         /* Directorio IFS de Salida (Obligatorio) */
+  '/home/SMEJIAR/GLBTST/output/'         /* Directorio IFS de Salida (Obligatorio) */
   'PRUEBA'                  /* Modo de Ejecucion: PRUEBA / PRODUCTIVO */
   'QA'                      /* Ambiente: QA / UAT / PRD */
   '0000000100'              /* Tolerancia en formato packed (1.00) */
@@ -215,7 +215,7 @@ Antes de ejecutar las pruebas, se debe poblar la base de datos con los escenario
 El programa CL `RUNTST` automatiza la ejecución de todas las pruebas unitarias y de integración.
 1. Ejecute el programa orquestador de pruebas:
    ```text
-   CALL PGM(GLBTSTLIB/RUNTST)
+   CALL PGM(SMEJIAR1/RUNTST)
    ```
 2. **Resultado esperado:** El programa invocará las pruebas de cálculo de saldos, evaluación de tolerancia, clasificación de estados e integración física. El resultado consolidado de cada prueba (`PASS` o `FAIL`) se registrará en la bitácora física `/GLBTST/logs/RUNTST_YYYYMMDD.log` y en el Joblog de la sesión.
 

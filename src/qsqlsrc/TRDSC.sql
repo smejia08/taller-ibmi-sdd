@@ -1,5 +1,5 @@
 --=============================================================================
--- Nombre de la Tabla: TRDSC
+-- Nombre de la Tabla: SMEJIAR1.TRDSC
 -- DESCRIPCIÓN: Descripciones Adicionales a las Transacciones (TRANS)
 -- Objetivo: Almacenar textos y conceptos adicionales de las transacciones.
 -- Tipo de Tabla: Detalle / Catálogo
@@ -11,8 +11,9 @@
 -- Fecha: 2026-06-24
 -- Proyecto: Taller IBM i - Conciliación
 --=============================================================================
+DROP TABLE IF EXISTS SMEJIAR1.TRDSC;
 
-CREATE OR REPLACE TABLE TRDSC (
+CREATE OR REPLACE TABLE SMEJIAR1.TRDSC (
   numero_registro_relativo FOR COLUMN NUMRRN VARCHAR(30) NOT NULL,
   secuencia FOR COLUMN SECUEN INT NOT NULL,
   tipo_movimiento FOR COLUMN TIPMOV VARCHAR(20),
@@ -32,113 +33,113 @@ CREATE OR REPLACE TABLE TRDSC (
 )
 RCDFMT RTRDSC;
 
-LABEL ON TABLE TRDSC IS
+LABEL ON TABLE SMEJIAR1.TRDSC IS
   'Descripciones Adicionales a Transacciones';
 
-COMMENT ON TABLE TRDSC IS
+COMMENT ON TABLE SMEJIAR1.TRDSC IS
   'Textos adicionales para enriquecer las transacciones.';
 
-COMMENT ON COLUMN TRDSC.numero_registro_relativo IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.numero_registro_relativo IS
   'Numero de registro relativo origen (RRN)';
-LABEL ON COLUMN TRDSC.numero_registro_relativo IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.numero_registro_relativo IS
   'Num. Registro Rel';
-LABEL ON COLUMN TRDSC.numero_registro_relativo TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.numero_registro_relativo TEXT IS
   'Numero de Registro Relativo';
 
-COMMENT ON COLUMN TRDSC.secuencia IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.secuencia IS
   'Secuencia de la descripcion adicional para el mismo RRN';
-LABEL ON COLUMN TRDSC.secuencia IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.secuencia IS
   'Secuencia Desc.';
-LABEL ON COLUMN TRDSC.secuencia TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.secuencia TEXT IS
   'Secuencia';
 
-COMMENT ON COLUMN TRDSC.tipo_movimiento IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.tipo_movimiento IS
   'Tipo de movimiento asociado a la descripcion';
-LABEL ON COLUMN TRDSC.tipo_movimiento IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.tipo_movimiento IS
   'Tipo Movimiento';
-LABEL ON COLUMN TRDSC.tipo_movimiento TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.tipo_movimiento TEXT IS
   'Tipo de Movimiento';
 
-COMMENT ON COLUMN TRDSC.tipo_descripcion IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.tipo_descripcion IS
   'Tipo de descripcion adicional (Concepto, Detalle, etc)';
-LABEL ON COLUMN TRDSC.tipo_descripcion IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.tipo_descripcion IS
   'Tipo Descrip.';
-LABEL ON COLUMN TRDSC.tipo_descripcion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.tipo_descripcion TEXT IS
   'Tipo de Descripcion';
 
-COMMENT ON COLUMN TRDSC.texto_descripcion IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.texto_descripcion IS
   'Texto descriptivo largo o concepto del movimiento';
-LABEL ON COLUMN TRDSC.texto_descripcion IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.texto_descripcion IS
   'Concepto Trans.';
-LABEL ON COLUMN TRDSC.texto_descripcion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.texto_descripcion TEXT IS
   'Concepto';
 
-COMMENT ON COLUMN TRDSC.codigo_idioma IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.codigo_idioma IS
   'Codigo del idioma de la descripcion (ES, EN, etc)';
-LABEL ON COLUMN TRDSC.codigo_idioma IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.codigo_idioma IS
   'Cod. Idioma';
-LABEL ON COLUMN TRDSC.codigo_idioma TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.codigo_idioma TEXT IS
   'Codigo de Idioma';
 
-COMMENT ON COLUMN TRDSC.formato_salida IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.formato_salida IS
   'Formato de salida esperado para el texto';
-LABEL ON COLUMN TRDSC.formato_salida IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.formato_salida IS
   'Formato Salida';
-LABEL ON COLUMN TRDSC.formato_salida TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.formato_salida TEXT IS
   'Formato de Salida';
 
-COMMENT ON COLUMN TRDSC.obligatorio IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.obligatorio IS
   'Indicador de obligatoriedad del texto (true/false)';
-LABEL ON COLUMN TRDSC.obligatorio IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.obligatorio IS
   'Flag Obligatorio';
-LABEL ON COLUMN TRDSC.obligatorio TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.obligatorio TEXT IS
   'Es Obligatorio';
 
-COMMENT ON COLUMN TRDSC.observaciones IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.observaciones IS
   'Observaciones generales sobre el texto';
-LABEL ON COLUMN TRDSC.observaciones IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.observaciones IS
   'Observaciones';
-LABEL ON COLUMN TRDSC.observaciones TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.observaciones TEXT IS
   'Observaciones';
 
-COMMENT ON COLUMN TRDSC.usuario_creacion IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.usuario_creacion IS
   'Usuario o proceso que registro la descripcion';
-LABEL ON COLUMN TRDSC.usuario_creacion IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.usuario_creacion IS
   'Usuario Creac.';
-LABEL ON COLUMN TRDSC.usuario_creacion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.usuario_creacion TEXT IS
   'Usuario de Creacion';
 
-COMMENT ON COLUMN TRDSC.usuario_actualizacion IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.usuario_actualizacion IS
   'Usuario o proceso que realizo la ultima actualizacion';
-LABEL ON COLUMN TRDSC.usuario_actualizacion IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.usuario_actualizacion IS
   'Usuario Act.';
-LABEL ON COLUMN TRDSC.usuario_actualizacion TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.usuario_actualizacion TEXT IS
   'Usuario de Actualizacion';
 
-COMMENT ON COLUMN TRDSC.version_registro IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.version_registro IS
   'Numero secuencial de version del registro para concurrencia';
-LABEL ON COLUMN TRDSC.version_registro IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.version_registro IS
   'Ver. Registro';
-LABEL ON COLUMN TRDSC.version_registro TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.version_registro TEXT IS
   'Version de Registro';
 
-COMMENT ON COLUMN TRDSC.estado_registro IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.estado_registro IS
   'Estado del registro (A Activo, I Inactivo)';
-LABEL ON COLUMN TRDSC.estado_registro IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.estado_registro IS
   'Est. Registro';
-LABEL ON COLUMN TRDSC.estado_registro TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.estado_registro TEXT IS
   'Estado de Registro';
 
-COMMENT ON COLUMN TRDSC.created_at IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.created_at IS
   'Marca de tiempo de creacion del registro en la base de datos';
-LABEL ON COLUMN TRDSC.created_at IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.created_at IS
   'Fecha Creacion';
-LABEL ON COLUMN TRDSC.created_at TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.created_at TEXT IS
   'Creado el';
 
-COMMENT ON COLUMN TRDSC.updated_at IS
+COMMENT ON COLUMN SMEJIAR1.TRDSC.updated_at IS
   'Marca de tiempo de la ultima modificacion del registro';
-LABEL ON COLUMN TRDSC.updated_at IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.updated_at IS
   'Fecha Actualiz.';
-LABEL ON COLUMN TRDSC.updated_at TEXT IS
+LABEL ON COLUMN SMEJIAR1.TRDSC.updated_at TEXT IS
   'Actualizado el';

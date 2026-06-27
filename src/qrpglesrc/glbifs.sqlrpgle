@@ -19,13 +19,22 @@ dcl-pr access int(10) extproc('access');
   mode int(10) value;
 end-pr;
 
-dcl-pr rename int(10) extproc('rename');
+dcl-pr rename int(10) extproc('Qp0lRenameKeep');
   old pointer value options(*string);
   new pointer value options(*string);
 end-pr;
 
 dcl-pr unlink int(10) extproc('unlink');
   path pointer value options(*string);
+end-pr;
+
+// Devuelve un puntero al errno del hilo actual
+dcl-pr getErrnoPtr pointer extproc('__errno');
+end-pr;
+
+// Devuelve el texto asociado a un errno
+dcl-pr strerror pointer extproc('strerror');
+   err int(10) value;
 end-pr;
 
 // Constantes POSIX para access()
@@ -81,9 +90,12 @@ dcl-proc writeTempFile export;
     status likeds(OpStatus);
     ruta varchar(500) const;
     nombreTemp varchar(128) const;
-    json varchar(1048576) const;
+    json varchar(1048576);
   end-pi;
   dcl-s path varchar(640);
+  dcl-s jsonClob sqltype(clob:100000);
+
+  jsonClob = json;
 
   path = joinPath(ruta: nombreTemp);
 
@@ -109,7 +121,7 @@ dcl-proc writeTempFile export;
   exec sql
     call QSYS2.IFS_WRITE_UTF8(
       PATH_NAME => :path,
-      LINE => :json
+      LINE => CAST(:jsonClob AS CLOB(1M))
     );
 
   if sqlcode < 0;
@@ -140,6 +152,11 @@ dcl-proc publishFile export;
   end-pi;
   dcl-s pathTemp varchar(640);
   dcl-s pathFinal varchar(640);
+  dcl-s pErrno pointer;
+  dcl-s errnoValue int(10) based(pErrno);
+
+  dcl-s pErrMsg pointer;
+  dcl-s errMsg varchar(256);
 
   pathTemp  = joinPath(ruta: nombreTemp);
   pathFinal = joinPath(ruta: nombreFinal);
@@ -150,10 +167,17 @@ dcl-proc publishFile export;
   endif;
 
   if rename(pathTemp: pathFinal) < 0;
+    pErrno = getErrnoPtr();
+    pErrMsg = strerror(errnoValue);
+
+    errMsg = %str(pErrMsg);
+
     status.ok = *off;
     status.severidad = 'CRITICA';
     status.codigo = 'IFS020';
-    status.mensaje = 'Error al publicar archivo final en IFS';
+    status.mensaje = 'Error al publicar archivo final en IFS' +
+                     'errno=' + %char(errnoValue) +
+                     ' - ' + %trim(errMsg);
     return;
   endif;
 
