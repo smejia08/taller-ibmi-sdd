@@ -53,7 +53,7 @@ flowchart TD
 * **Generación JSON (`GLBJSON` - Service Program / SQLRPGLE):** Construye el documento de salida estructurado mediante funciones nativas de Db2 for i (`JSON_OBJECT`, `JSON_ARRAYAGG`, `FORMAT JSON`). También implementa rutinas para validar sintácticamente el JSON resultante usando `JSON_TABLE` y verificar el cuadre de totales agregados.
 * **Acceso a IFS (`GLBIFS` - Service Program / SQLRPGLE):** Valida las rutas y gestiona la escritura física atómica en el IFS en codificación UTF-8 utilizando la utilidad del sistema `QSYS2.IFS_WRITE_UTF8`.
 * **Bitácora y Auditoría (`GLBLOG` - Service Program / SQLRPGLE):** Registra eventos secuenciales y técnicos en un archivo plano en el IFS, formateado con la estructura normalizada: `timestamp|idEjecucion|etapa|severidad|codigo|mensaje`.
-* **Componentes de Pruebas:** Compuesto por programas unitarios (`T_RULES01` a `T_RULES12`), integrados (`TI_DATA01` a `TI_LOG01`), scripts SQL de aserción (`ASSERT_JSON.sql`, `ASSERT_TOTALES.sql`) y un orquestador secuencial en CL (`RUNTST`).
+* **Componentes de Pruebas:** Compuesto por seis programas de servicio (`TSTRULES`, `TSTDATA`, `TSTJSON`, `TSTIFS`, `TSTLOG`, `TSTBATCH`) que exportan los 24 casos existentes, scripts SQL de aserción (`ASSERT_JSON.sql`, `ASSERT_TOTALES.sql`) y el orquestador RPGLE `RUNTST`.
 
 ## Tecnologías Utilizadas
 

@@ -1,0 +1,28 @@
+dcl-pr TestRules01 extproc('TestRules01'); end-pr;
+dcl-pr TestRules02 extproc('TestRules02'); end-pr;
+dcl-pr TestRules03 extproc('TestRules03'); end-pr;
+dcl-pr TestRules04 extproc('TestRules04'); end-pr;
+dcl-pr TestRules05 extproc('TestRules05'); end-pr;
+dcl-pr TestRules06 extproc('TestRules06'); end-pr;
+dcl-pr TestRules07 extproc('TestRules07'); end-pr;
+dcl-pr TestRules08 extproc('TestRules08'); end-pr;
+dcl-pr TestRules09 extproc('TestRules09'); end-pr;
+dcl-pr TestRules10 extproc('TestRules10'); end-pr;
+dcl-pr TestRules11 extproc('TestRules11'); end-pr;
+dcl-pr TestRules12 extproc('TestRules12'); end-pr;
+
+dcl-pr TestData01 extproc('TestData01'); end-pr;
+dcl-pr TestData02 extproc('TestData02'); end-pr;
+dcl-pr TestData03 extproc('TestData03'); end-pr;
+dcl-pr TestData04 extproc('TestData04'); end-pr;
+dcl-pr TestData05 extproc('TestData05'); end-pr;
+
+dcl-pr TestJson01 extproc('TestJson01'); end-pr;
+dcl-pr TestJson02 extproc('TestJson02'); end-pr;
+
+dcl-pr TestIfs01 extproc('TestIfs01'); end-pr;
+dcl-pr TestIfs02 extproc('TestIfs02'); end-pr;
+dcl-pr TestIfs03 extproc('TestIfs03'); end-pr;
+
+dcl-pr TestLog01 extproc('TestLog01'); end-pr;
+dcl-pr TestBatch01 extproc('TestBatch01'); end-pr;

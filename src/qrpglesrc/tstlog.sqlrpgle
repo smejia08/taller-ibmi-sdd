@@ -1,12 +1,12 @@
 **free
-ctl-opt main(Main) option(*srcstmt:*nodebugio);
+ctl-opt nomain option(*srcstmt:*nodebugio);
 
 /include qrpglesrc,glbtypes
 /include qrpglesrc,t_svc_pr
 
 exec sql set option commit = *none, closqlcsr = *endmod;
 
-dcl-proc Main;
+dcl-proc TestLog01 export;
   dcl-pi *n end-pi;
   dcl-s status likeds(OpStatus);
 
@@ -25,8 +25,6 @@ dcl-proc Main;
     closeLog(status: 'TST001');
   endif;
   assertInd(status.ok: 'TI_LOG01');
-  *inlr = *on;
 end-proc;
 
 /include qrpglesrc,t_assert
-

@@ -1,7 +1,5 @@
 **free
-ctl-opt main(Main) option(*srcstmt:*nodebugio);
-
-/include qrpglesrc,glbtypes
+ctl-opt nomain option(*srcstmt:*nodebugio);
 
 dcl-pr GLBATCH extpgm('GLBATCH');
   pBanco varchar(10) const;
@@ -16,12 +14,10 @@ dcl-pr GLBATCH extpgm('GLBATCH');
   pTolerancia packed(18:2) const;
 end-pr;
 
-dcl-proc Main;
+dcl-proc TestBatch01 export;
   dcl-pi *n end-pi;
 
   GLBATCH('001': '001': 'COP': '100000': '170000': '2026-06-25':
           '/GLBTST/output/': 'PRUEBA': 'TST': 10.00);
   dsply 'PASS TI_BATCH01';
-  *inlr = *on;
 end-proc;
-

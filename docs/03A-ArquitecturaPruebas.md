@@ -5,6 +5,11 @@
 > Define la estrategia completa de testabilidad para el proceso de
 > conciliacion GLBLN dentro del ambiente PUB400.
 
+> **Actualizacion de implementacion:** los casos descritos en este
+> documento se conservan sin cambios, pero desde la refactorizacion 04A
+> se implementan como procedimientos en seis programas de servicio.
+> Consulte `04A-RefactorizacionPruebas.md` para el mapa de objetos vigente.
+
 ---
 
 ## 1. Objetivos de pruebas
@@ -74,9 +79,9 @@
 
 | Ruta | Uso |
 |---|---|
-| `/GLBTST/output/` | Directorio de salida JSON en pruebas. |
-| `/GLBTST/logs/` | Directorio de bitacoras TXT en pruebas. |
-| `/GLBTST/invalid/` | Ruta con permisos insuficientes para prueba de error IFS. |
+| `/home/SMEJIAR/GLBTST/output/` | Directorio de salida JSON en pruebas. |
+| `/home/SMEJIAR/GLBTST/logs/` | Directorio de bitacoras TXT en pruebas. |
+| `/home/SMEJIAR/GLBTST/invalid/` | Ruta con permisos insuficientes para prueba de error IFS. |
 
 ---
 
@@ -116,7 +121,7 @@ con prefijo `TI_`.
 | `TI_DATA05` | `GLBDATA` + DB2 | Carga de descripciones `TRDSC` — descripcion faltante |
 | `TI_JSON01` | `GLBJSON` + DB2 | Generacion JSON un ciclo completo — cuenta conciliada |
 | `TI_JSON02` | `GLBJSON` + DB2 | Generacion JSON — multiples cuentas con incidentes |
-| `TI_IFS01`  | `GLBIFS` + IFS  | Escritura archivo JSON en ruta valida `/GLBTST/output/` |
+| `TI_IFS01`  | `GLBIFS` + IFS  | Escritura archivo JSON en ruta valida `/home/SMEJIAR/GLBTST/output/` |
 | `TI_IFS02`  | `GLBIFS` + IFS  | Publicacion archivo temporal al nombre final |
 | `TI_IFS03`  | `GLBIFS` + IFS  | Error en ruta invalida — archivo temporal no publicado |
 | `TI_LOG01`  | `GLBLOG` + IFS  | Apertura, escritura de eventos y cierre de bitacora |
@@ -227,7 +232,7 @@ definidas en la arquitectura funcional.
 
 | Campo | Valor |
 |---|---|
-| `RunParms.rutaIfs` | `/GLBTST/invalid/` (sin permiso *W para perfil de prueba) |
+| `RunParms.rutaIfs` | `/home/SMEJIAR/GLBTST/invalid/` (sin permiso *W para perfil de prueba) |
 | `GLBLN` | >= 1 fila con cualquier cuenta valida |
 
 ---
@@ -239,8 +244,8 @@ definidas en la arquitectura funcional.
 | Tipo | Descripcion | Formato |
 |---|---|---|
 | EV-JOB | Joblog capturado de la ejecucion batch | TXT / spool |
-| EV-JSON | Archivo JSON generado en `/GLBTST/output/` | `.json` |
-| EV-LOG | Bitacora TXT generada en `/GLBTST/logs/` | `.log` |
+| EV-JSON | Archivo JSON generado en `/home/SMEJIAR/GLBTST/output/` | `.json` |
+| EV-LOG | Bitacora TXT generada en `/home/SMEJIAR/GLBTST/logs/` | `.log` |
 | EV-SQL | Resultado de sentencia SQL de validacion en ACS Run SQL Scripts | Captura pantalla o CSV |
 | EV-ASSERT | Comparacion valor esperado vs. obtenido dentro del programa de prueba | DSPLY o JOBLOG |
 
@@ -328,10 +333,10 @@ tengan precedencia sobre los de desarrollo.
 
 | Ruta IFS | Creacion | Observacion |
 |---|---|---|
-| `/GLBTST/` | Manual antes de pruebas | Directorio raiz de pruebas |
-| `/GLBTST/output/` | `MOCK_INS.sql` o manual | Salida JSON de prueba |
-| `/GLBTST/logs/` | `MOCK_INS.sql` o manual | Bitacoras de prueba |
-| `/GLBTST/invalid/` | Manual sin permiso `*W` para perfil de prueba | Simula ruta sin permisos |
+| `/home/SMEJIAR/GLBTST/` | Manual antes de pruebas | Directorio raiz de pruebas |
+| `/home/SMEJIAR/GLBTST/output/` | `MOCK_INS.sql` o manual | Salida JSON de prueba |
+| `/home/SMEJIAR/GLBTST/logs/` | `MOCK_INS.sql` o manual | Bitacoras de prueba |
+| `/home/SMEJIAR/GLBTST/invalid/` | Manual sin permiso `*W` para perfil de prueba | Simula ruta sin permisos |
 
 ---
 
@@ -360,7 +365,7 @@ Secuencia de ejecucion manual reproducible:
 1. Ejecutar MOCK_DEL.sql      Limpia datos de ejecucion anterior.
 2. Ejecutar MOCK_INS.sql      Carga mock data completo.
 3. Ejecutar BLDTST            Compila programas de prueba.
-4. CALL GLBTSTLIB/RUNTST      Ejecuta suite y escribe resultado en /GLBTST/logs/.
+4. CALL GLBTSTLIB/RUNTST      Ejecuta suite y escribe resultado en /home/SMEJIAR/GLBTST/logs/.
 5. Ejecutar ASSERT_JSON.sql   Valida JSON generado con JSON_TABLE en ACS.
 6. Ejecutar ASSERT_TOTALES.sql Valida cuadre de controlTotales.
 ```
@@ -370,9 +375,9 @@ Secuencia de ejecucion manual reproducible:
 `RUNTST` es un programa CL que:
 
 - Llama a `TI_BATCH01` con `RunParms` apuntando a `GLBTSTLIB` y
-  `/GLBTST/output/`.
+  `/home/SMEJIAR/GLBTST/output/`.
 - Llama a cada programa `T_RULES*` de forma secuencial.
-- Registra PASS / FAIL en `/GLBTST/logs/RUNTST_YYYYMMDD.log`.
+- Registra PASS / FAIL en `/home/SMEJIAR/GLBTST/logs/RUNTST_YYYYMMDD.log`.
 - Retorna `*ON` si todos los programas terminaron sin estado `ERROR`.
 
 No requiere scheduler. Puede invocarse con `CALL GLBTSTLIB/RUNTST`
@@ -385,7 +390,7 @@ desde una sesion 5250 o desde ACS Run SQL via sentencia `CALL`.
 SELECT jt.*
   FROM JSON_TABLE(
          GET_CLOB_FROM_FILE(
-           PATH_NAME => '/GLBTST/output/'
+           PATH_NAME => '/home/SMEJIAR/GLBTST/output/'
              CONCAT 'CONCILIACION_GLBLN_TST.json'
          ),
          'strict $.controlTotales'
@@ -691,10 +696,10 @@ como evidencia EV-JOB.
 | Campo | Valor |
 |---|---|
 | **ID** | IT-07 |
-| **Objetivo** | Verificar que `validatePath`, `writeTempFile` y `publishFile` escriben el JSON en `/GLBTST/output/` con el nombre final correcto. |
+| **Objetivo** | Verificar que `validatePath`, `writeTempFile` y `publishFile` escriben el JSON en `/home/SMEJIAR/GLBTST/output/` con el nombre final correcto. |
 | **Programa bajo prueba** | `GLBIFS` — procedimientos `validatePath`, `writeTempFile`, `publishFile` |
-| **Datos de entrada** | ruta='/GLBTST/output/'. JsonDoc CLOB valido. Nombre temporal y final generados por orquestador. |
-| **Resultado esperado** | Archivo final existe en `/GLBTST/output/`. Temporal eliminado. OpStatus.ok=*ON en cada paso. |
+| **Datos de entrada** | ruta='/home/SMEJIAR/GLBTST/output/'. JsonDoc CLOB valido. Nombre temporal y final generados por orquestador. |
+| **Resultado esperado** | Archivo final existe en `/home/SMEJIAR/GLBTST/output/`. Temporal eliminado. OpStatus.ok=*ON en cada paso. |
 | **Evidencia esperada** | EV-SQL: `QSYS2.IFS_OBJECT_STATISTICS` muestra el archivo publicado. |
 
 ---
@@ -706,7 +711,7 @@ como evidencia EV-JOB.
 | **ID** | IT-08 |
 | **Objetivo** | Verificar que cuando `validatePath` detecta ruta sin permisos, retorna OpStatus de error y el orquestador aborta sin publicar ningun archivo. |
 | **Programa bajo prueba** | `GLBIFS` — procedimiento `validatePath` |
-| **Datos de entrada** | ruta='/GLBTST/invalid/' (sin permiso *W para perfil de prueba). |
+| **Datos de entrada** | ruta='/home/SMEJIAR/GLBTST/invalid/' (sin permiso *W para perfil de prueba). |
 | **Resultado esperado** | OpStatus.ok=*OFF. Sin archivo JSON en ruta invalida. Estado final del batch = ERROR. |
 | **Evidencia esperada** | EV-JOB: JOBLOG con codigo de error. EV-SQL: No existe archivo en ruta invalida. |
 
@@ -721,9 +726,9 @@ como evidencia EV-JOB.
 | Campo | Valor |
 |---|---|
 | **ID** | IT-09 |
-| **Objetivo** | Verificar que `openLog`, `writeEvent` y `closeLog` generan un archivo TXT en `/GLBTST/logs/` con el formato normalizado correcto. |
+| **Objetivo** | Verificar que `openLog`, `writeEvent` y `closeLog` generan un archivo TXT en `/home/SMEJIAR/GLBTST/logs/` con el formato normalizado correcto. |
 | **Programa bajo prueba** | `GLBLOG` — procedimientos `openLog`, `writeEvent`, `closeLog` |
-| **Datos de entrada** | ruta='/GLBTST/logs/'. idEjecucion='TST001'. Eventos: INICIO, ETAPA_DATOS, FIN. |
+| **Datos de entrada** | ruta='/home/SMEJIAR/GLBTST/logs/'. idEjecucion='TST001'. Eventos: INICIO, ETAPA_DATOS, FIN. |
 | **Resultado esperado** | Archivo `.log` existe. Cada linea tiene formato `timestamp\|idEjecucion\|etapa\|severidad\|codigo\|mensaje`. Exactamente 3 lineas. |
 | **Evidencia esperada** | EV-LOG: Contenido verificado con `GET_CLOB_FROM_FILE` en ACS. |
 
@@ -740,8 +745,8 @@ como evidencia EV-JOB.
 | **ID** | IT-10 |
 | **Objetivo** | Verificar que el flujo completo `GLBCONC` a `GLBATCH` a servicios a IFS ejecuta de punta a punta con mock data, genera JSON y bitacora, y retorna estado EXITOSO. |
 | **Programa bajo prueba** | `GLBCONC`, `GLBATCH`, `GLBDATA`, `GLBRULES`, `GLBJSON`, `GLBIFS`, `GLBLOG` |
-| **Datos de entrada** | RunParms: banco=001, moneda=COP, fechaProceso=CURDATE, rutaIfs='/GLBTST/output/', tolerancia=10.00, modoEjecucion=BATCH, ambiente=TST. Mock data completo de 8 cuentas. |
-| **Resultado esperado** | JSON publicado en `/GLBTST/output/`. Bitacora en `/GLBTST/logs/`. Estado final EXITOSO. ControlTotales cuadra para 8 cuentas. Cuenta 170000 en estado NO_PROCESADA. |
+| **Datos de entrada** | RunParms: banco=001, moneda=COP, fechaProceso=CURDATE, rutaIfs='/home/SMEJIAR/GLBTST/output/', tolerancia=10.00, modoEjecucion=BATCH, ambiente=TST. Mock data completo de 8 cuentas. |
+| **Resultado esperado** | JSON publicado en `/home/SMEJIAR/GLBTST/output/`. Bitacora en `/home/SMEJIAR/GLBTST/logs/`. Estado final EXITOSO. ControlTotales cuadra para 8 cuentas. Cuenta 170000 en estado NO_PROCESADA. |
 | **Evidencia esperada** | EV-JSON, EV-LOG, EV-SQL cuadre controlTotales, EV-JOB con estado EXITOSO. |
 
 ---
@@ -753,8 +758,8 @@ como evidencia EV-JOB.
 | **ID** | IT-11 |
 | **Objetivo** | Verificar que el flujo completo termina con estado ERROR y no publica JSON cuando la ruta IFS es invalida. |
 | **Programa bajo prueba** | `GLBCONC`, `GLBATCH`, `GLBIFS` |
-| **Datos de entrada** | RunParms identicos a IT-10 pero rutaIfs='/GLBTST/invalid/'. Mock data completo. |
-| **Resultado esperado** | Sin archivo JSON en `/GLBTST/invalid/`. Estado final ERROR. Bitacora registra el error con severidad CRITICA antes de FIN. |
+| **Datos de entrada** | RunParms identicos a IT-10 pero rutaIfs='/home/SMEJIAR/GLBTST/invalid/'. Mock data completo. |
+| **Resultado esperado** | Sin archivo JSON en `/home/SMEJIAR/GLBTST/invalid/`. Estado final ERROR. Bitacora registra el error con severidad CRITICA antes de FIN. |
 | **Evidencia esperada** | EV-JOB: estado ERROR. EV-LOG: linea de error IFS. EV-SQL: no existe archivo en ruta invalida. |
 
 ---
@@ -783,7 +788,7 @@ como evidencia EV-JOB.
 | **ID** | CT-02 |
 | **Objetivo** | Confirmar que el archivo JSON en IFS esta codificado en UTF-8 sin caracteres invalidos. |
 | **Programa bajo prueba** | `GLBJSON` — procedimiento `validateUtf8` |
-| **Datos de entrada** | Archivo JSON en `/GLBTST/output/` generado en IT-10. |
+| **Datos de entrada** | Archivo JSON en `/home/SMEJIAR/GLBTST/output/` generado en IT-10. |
 | **Resultado esperado** | `validateUtf8` retorna OpStatus.ok=*ON. `GET_CLOB_FROM_FILE` lo lee sin error. |
 | **Evidencia esperada** | EV-SQL: Lectura exitosa. EV-ASSERT: DSPLY PASS. |
 
